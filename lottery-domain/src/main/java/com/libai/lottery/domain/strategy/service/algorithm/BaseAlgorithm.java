@@ -27,10 +27,18 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm{
     /**
      * 存放概率与奖品对应的散列结果，strategyId -> rateTuple
      */
-    public Map<Long, String[]> rateTupleMap = new ConcurrentHashMap<>();
+    protected Map<Long, String[]> rateTupleMap = new ConcurrentHashMap<>();
+
+    /**
+     * 奖品区间概率值
+     */
+    protected Map<Long, List<AwardRateInfo>> awardRateInfoMap = new ConcurrentHashMap<>();
 
     @Override
     public void initRateTuple(Long strategyId, List<AwardRateInfo> awardRateInfoList) {
+        // 保存奖品概率信息
+        awardRateInfoMap.put(strategyId, awardRateInfoList);
+
         String[] rateTuple = rateTupleMap.computeIfAbsent(strategyId, k -> new String[RATE_TUPLE_LENGTH]);
         // 关键变量，避免重复区间
         int cursorVal = 0;
@@ -45,6 +53,11 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm{
 
     }
 
+    /**
+     * 斐波那契散列法，计算哈希索引下标值，减少hash碰撞，使奖品能充分的分布
+     * @param val 值
+     * @return 索引
+     */
     protected int hashIdx(int val) {
         int hashCode = val * HASH_INCREMENT + HASH_INCREMENT;
         return hashCode & (RATE_TUPLE_LENGTH - 1);

@@ -1,7 +1,6 @@
 package com.libai.lottery.test.domain.strategy.algorithm;
 
 import com.libai.lottery.domain.strategy.model.vo.AwardRateInfo;
-import com.libai.lottery.domain.strategy.service.DrawStrategy;
 import com.libai.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +9,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +25,7 @@ public class AlgorithmTest {
 
 
     @Resource
-    IDrawAlgorithm randomDrawAlgorithm;
+    IDrawAlgorithm defaultRateRandomDrawAlgorithm;
 
 
     @Test
@@ -72,12 +70,15 @@ public class AlgorithmTest {
     @Test
     public void test_DrawStrategy() {
         List<AwardRateInfo> strategyList = new ArrayList<>();
-        strategyList.add(new AwardRateInfo("一等奖：彩电", new BigDecimal("0.02")));
+        strategyList.add(new AwardRateInfo("特等奖：100W", new BigDecimal("0.02")));
+        strategyList.add(new AwardRateInfo("一等奖：彩电", new BigDecimal("0.08")));
         strategyList.add(new AwardRateInfo("二等奖：树苗", new BigDecimal("0.3")));
         strategyList.add(new AwardRateInfo("三等奖：谢谢回顾", new BigDecimal("0.5")));
 
-        randomDrawAlgorithm.initRateTuple(100001L, strategyList);
-        String result = randomDrawAlgorithm.randomDraw(100001L);
+        ArrayList<String> excludeAwardIds = new ArrayList<>();
+        excludeAwardIds.add("特等奖：100W");
+        defaultRateRandomDrawAlgorithm.initRateTuple(100001L, strategyList);
+        String result = defaultRateRandomDrawAlgorithm.randomDraw(100001L,excludeAwardIds );
         System.out.println(result);
     }
 
