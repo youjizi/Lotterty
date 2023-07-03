@@ -39,4 +39,11 @@ public interface IDrawAlgorithm {
      * @return           中奖结果
      */
     String randomDraw(Long strategyId, List<String> excludeAwardIds);
+
+    /**
+     * 判断是否已经初始化数据
+     * @param strategyId 策略ID
+     * @return 结果
+     */
+    boolean isExistRateTuple(Long strategyId);
 }

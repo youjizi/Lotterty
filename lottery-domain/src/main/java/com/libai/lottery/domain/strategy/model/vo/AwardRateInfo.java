@@ -3,7 +3,7 @@ package com.libai.lottery.domain.strategy.model.vo;
 import java.math.BigDecimal;
 
 /**
- * @description: 奖品概率信息，奖品编号、库存、概率
+ * @description: 奖品编号、奖品概率信息
  * @author： 有骥子
  * @date: 2023/7/2
  */

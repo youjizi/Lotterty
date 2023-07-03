@@ -53,6 +53,11 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm{
 
     }
 
+    @Override
+    public boolean isExistRateTuple(Long strategyId) {
+        return rateTupleMap.containsKey(strategyId);
+    }
+
     /**
      * 斐波那契散列法，计算哈希索引下标值，减少hash碰撞，使奖品能充分的分布
      * @param val 值

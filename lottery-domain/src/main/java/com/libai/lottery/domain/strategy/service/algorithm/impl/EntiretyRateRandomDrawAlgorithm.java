@@ -14,8 +14,8 @@ import java.util.List;
  * @author： 有骥子
  * @date: 2023/7/2
  */
-@Component("defaultRateRandomDrawAlgorithm")
-public class DefaultRateRandomDrawAlgorithm extends BaseAlgorithm {
+@Component("entiretyRateRandomDrawAlgorithm")
+public class EntiretyRateRandomDrawAlgorithm extends BaseAlgorithm {
 
     @Override
     public String randomDraw(Long strategyId, List<String> excludeAwardIds) {
