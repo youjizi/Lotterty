@@ -17,6 +17,7 @@
     </properties>
 
     <dependencies>
+    <!--  业务模块      -->
         <dependency>
             <groupId>com.libai</groupId>
             <artifactId>lottery-infrastructure</artifactId>
@@ -28,6 +29,14 @@
             <artifactId>lottery-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+    <!--  功能模块      -->
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
+
     </dependencies>
 
 </project>

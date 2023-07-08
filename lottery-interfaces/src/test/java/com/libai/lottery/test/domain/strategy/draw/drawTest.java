@@ -1,6 +1,5 @@
 package com.libai.lottery.test.domain.strategy.draw;
 
-import com.alibaba.fastjson.JSON;
 import com.libai.lottery.domain.strategy.model.req.DrawReq;
 import com.libai.lottery.domain.strategy.model.res.DrawResult;
 import com.libai.lottery.domain.strategy.service.draw.IDrawExec;
@@ -34,8 +33,8 @@ public class drawTest {
         for (int i = 0; i < 20; i++) {
 
             DrawResult result= drawExec.doDrawExec(new DrawReq("李白", 10001L));
-            logger.info(i + JSON.toJSONString(result.getAwardName()));
-            Thread.sleep(200L);
+//            logger.info(i + JSON.toJSONString(result.getAwardName()));
+//            Thread.sleep(200L);
         }
 
     }
