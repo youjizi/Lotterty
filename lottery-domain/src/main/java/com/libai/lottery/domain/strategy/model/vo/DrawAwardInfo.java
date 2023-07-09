@@ -18,6 +18,17 @@ public class DrawAwardInfo {
      */
     private String awardName;
 
+    /**
+     * 奖品类型
+     */
+    private Integer awardType;
+
+
+    /**
+     * 奖品内容
+     */
+    private String awardContent;
+
 
     public DrawAwardInfo() {
     }
@@ -25,6 +36,19 @@ public class DrawAwardInfo {
     public DrawAwardInfo(String awardId, String awardName) {
         this.awardId = awardId;
         this.awardName = awardName;
+    }
+
+    public DrawAwardInfo(String awardId, String awardName, Integer awardType) {
+        this.awardId = awardId;
+        this.awardName = awardName;
+        this.awardType = awardType;
+    }
+
+    public DrawAwardInfo(String awardId, String awardName, Integer awardType, String awardContent) {
+        this.awardId = awardId;
+        this.awardName = awardName;
+        this.awardType = awardType;
+        this.awardContent = awardContent;
     }
 
     public String getAwardId() {
@@ -41,5 +65,21 @@ public class DrawAwardInfo {
 
     public void setAwardName(String awardName) {
         this.awardName = awardName;
+    }
+
+    public Integer getAwardType() {
+        return awardType;
+    }
+
+    public void setAwardType(Integer awardType) {
+        this.awardType = awardType;
+    }
+
+    public String getAwardContent() {
+        return awardContent;
+    }
+
+    public void setAwardContent(String awardContent) {
+        this.awardContent = awardContent;
     }
 }

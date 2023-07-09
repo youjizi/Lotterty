@@ -23,7 +23,7 @@
         WHERE strategy_id = #{strategyId}
     </select>
 
-    <select id="queryNoStockStrategyAwardList" parameterType="java.lang.Long" >
+    <select id="queryNoStockStrategyAwardList" parameterType="java.lang.Long" resultType="java.lang.String">
         SELECT award_id
         FROM strategy_detail
         WHERE strategy_id = #{strategyId} AND award_surplus_count = 0
