@@ -1,7 +1,13 @@
 package com.libai.lottery.test.domain.strategy.draw;
 
+import com.alibaba.fastjson.JSON;
+import com.libai.lottery.domain.award.model.req.GoodsReq;
+import com.libai.lottery.domain.award.model.res.DistributionRes;
+import com.libai.lottery.domain.award.service.factory.DistributionGoodsFactory;
+import com.libai.lottery.domain.award.service.goods.IDistributionGoods;
 import com.libai.lottery.domain.strategy.model.req.DrawReq;
 import com.libai.lottery.domain.strategy.model.res.DrawResult;
+import com.libai.lottery.domain.strategy.model.vo.DrawAwardInfo;
 import com.libai.lottery.domain.strategy.service.draw.IDrawExec;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,14 +34,21 @@ public class drawTest {
     @Resource
     IDrawExec drawExec;
 
+    @Resource
+    DistributionGoodsFactory factory;
+
     @Test
     public void drawing() throws InterruptedException {
-        for (int i = 0; i < 20; i++) {
 
-            DrawResult result= drawExec.doDrawExec(new DrawReq("李白", 10001L));
-//            logger.info(i + JSON.toJSONString(result.getAwardName()));
-//            Thread.sleep(200L);
-        }
+
+        DrawResult result= drawExec.doDrawExec(new DrawReq("李白", 10001L));
+        logger.info(JSON.toJSONString(result.getDrawAwardInfo()));
+
+        DrawAwardInfo drawAwardInfo = result.getDrawAwardInfo();
+        IDistributionGoods distributionGoodsService = factory.getDistributionGoodsService(drawAwardInfo.getAwardType());
+        DistributionRes order123 = distributionGoodsService.doDistribution(new GoodsReq(result.getuId(), "order123", drawAwardInfo.getAwardId(), drawAwardInfo.getAwardName(), drawAwardInfo.getAwardContent()));
+        logger.info(JSON.toJSONString(order123));
+
 
     }
 }

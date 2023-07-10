@@ -1,7 +1,7 @@
 package com.libai.lottery.domain.strategy.repository;
 
 import com.libai.lottery.domain.strategy.model.aggregates.StrategyRich;
-import com.libai.lottery.infrastructure.po.Award;
+import com.libai.lottery.domain.strategy.model.vo.AwardBriefVO;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public interface IStrategyRepository {
      * @param awardId 奖品ID
      * @return 返回奖品信息
      */
-    Award queryAwardInfo(String awardId);
+    AwardBriefVO queryAwardInfo(String awardId);
 
     /**
      * 查询库存不足的奖品

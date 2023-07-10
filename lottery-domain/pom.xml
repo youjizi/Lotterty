@@ -17,26 +17,22 @@
     </properties>
 
     <dependencies>
-    <!--  业务模块      -->
-        <dependency>
-            <groupId>com.libai</groupId>
-            <artifactId>lottery-infrastructure</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-
+    <!--  业务模块 -->
         <dependency>
             <groupId>com.libai</groupId>
             <artifactId>lottery-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-    <!--  功能模块      -->
-
+    <!--  功能模块 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
         </dependency>
 
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

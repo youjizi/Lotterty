@@ -35,11 +35,6 @@
             <artifactId>lottery-infrastructure</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>com.libai</groupId>
-            <artifactId>lottery-domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
 
 
         <!--业务包-->
