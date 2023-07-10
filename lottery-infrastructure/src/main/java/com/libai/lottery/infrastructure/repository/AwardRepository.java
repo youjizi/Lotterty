@@ -1,7 +1,8 @@
-package com.libai.lottery.domain.award.repository.impl;
+package com.libai.lottery.infrastructure.repository;
 
 import com.libai.lottery.domain.award.repository.IAwardRepository;
 import org.springframework.stereotype.Component;
+
 
 /**
  * @description: 仓储实现类

@@ -41,8 +41,8 @@ public class drawTest {
     public void drawing() throws InterruptedException {
 
 
-            DrawResult result= drawExec.doDrawExec(new DrawReq("李白", 10001L));
-            logger.info(JSON.toJSONString(result.getDrawAwardInfo()));
+        DrawResult result= drawExec.doDrawExec(new DrawReq("李白", 10001L));
+        logger.info(JSON.toJSONString(result.getDrawAwardInfo()));
 
         DrawAwardInfo drawAwardInfo = result.getDrawAwardInfo();
         IDistributionGoods distributionGoodsService = factory.getDistributionGoodsService(drawAwardInfo.getAwardType());
