@@ -18,10 +18,25 @@ public class Result implements Serializable {
         return new Result(code, info);
     }
 
+    public static Result buildResult(Constants.ResponseCode state, String info) {
+
+        return new Result(state.getCode(), info);
+    }
+
+
+    public static Result buildSuccessResult(String info) {
+        return new Result(Constants.ResponseCode.SUCCESS.getCode(),info);
+    }
 
     public static Result buildSuccessResult() {
         return new Result(Constants.ResponseCode.SUCCESS.getCode(),Constants.ResponseCode.SUCCESS.getInfo());
     }
+
+
+    public static Result buildErrorResult(String info) {
+        return new Result(Constants.ResponseCode.UN_ERROR.getCode(), info);
+    }
+
     public static Result buildErrorResult() {
         return new Result(Constants.ResponseCode.UN_ERROR.getCode(),Constants.ResponseCode.UN_ERROR.getInfo());
     }

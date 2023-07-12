@@ -28,5 +28,10 @@
         WHERE activity_id = #{activityId}
     </select>
 
+    <update id="alterStatus" parameterType="com.libai.lottery.domain.activity.model.vo.AlterStateVO">
+        UPDATE activity
+        SET state = #{targetState}
+        WHERE activity_id = #{activityId} AND state = #{currentState}
+    </update>
 
 </mapper>
