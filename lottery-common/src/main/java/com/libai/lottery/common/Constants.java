@@ -77,6 +77,54 @@ public class Constants {
     }
 
 
+    public enum IDs {
+
+
+        /**
+         * 雪花算法
+         */
+        SnowFlake(1, "雪花算法"),
+
+
+        /**
+         * 日期算法
+         */
+        ShortCode(2, "日期算法"),
+
+
+        /**
+         * 随机算法
+         */
+        RandomNumeric(3, "随机算法");
+
+
+
+        private Integer code;
+        private String info;
+
+        IDs(Integer code, String info) {
+            this.code = code;
+            this.info = info;
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public void setCode(Integer code) {
+            this.code = code;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+
+        public void setInfo(String info) {
+            this.info = info;
+        }
+    }
+
+
     public enum DrawState{
 
         /**
