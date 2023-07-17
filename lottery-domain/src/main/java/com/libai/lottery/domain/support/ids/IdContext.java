@@ -20,11 +20,11 @@ import java.util.Map;
 public class IdContext {
 
     @Bean
-    public Map<Constants.IDs, IIdGenerator> idGenerator(SnowFlake snowFlake, ShortCode shortCode, RandomNumeric randomNumeric) {
-        Map<Constants.IDs, IIdGenerator> idGeneratorMap = new HashMap<>(8);
-        idGeneratorMap.put(Constants.IDs.SnowFlake, snowFlake);
-        idGeneratorMap.put(Constants.IDs.ShortCode, shortCode);
-        idGeneratorMap.put(Constants.IDs.RandomNumeric, randomNumeric);
+    public Map<Constants.Ids, IIdGenerator> idGenerator(SnowFlake snowFlake, ShortCode shortCode, RandomNumeric randomNumeric) {
+        Map<Constants.Ids, IIdGenerator> idGeneratorMap = new HashMap<>(8);
+        idGeneratorMap.put(Constants.Ids.SnowFlake, snowFlake);
+        idGeneratorMap.put(Constants.Ids.ShortCode, shortCode);
+        idGeneratorMap.put(Constants.Ids.RandomNumeric, randomNumeric);
         return idGeneratorMap;
     }
 }

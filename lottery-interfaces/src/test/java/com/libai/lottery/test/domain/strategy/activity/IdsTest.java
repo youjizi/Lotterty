@@ -26,11 +26,11 @@ public class IdsTest {
     Logger logger = LoggerFactory.getLogger(drawTest.class);
 
     @Resource
-    Map<Constants.IDs, IIdGenerator> idGenerator;
+    Map<Constants.Ids, IIdGenerator> idGenerator;
 
     @Test
     public void stateFlow()  {
-        IIdGenerator iIdGenerator = idGenerator.get(Constants.IDs.SnowFlake);
+        IIdGenerator iIdGenerator = idGenerator.get(Constants.Ids.SnowFlake);
         long l = iIdGenerator.nextId();
         logger.info(String.valueOf(l));
 

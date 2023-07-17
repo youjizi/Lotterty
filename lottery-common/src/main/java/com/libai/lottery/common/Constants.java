@@ -77,7 +77,7 @@ public class Constants {
     }
 
 
-    public enum IDs {
+    public enum Ids {
 
 
         /**
@@ -102,7 +102,7 @@ public class Constants {
         private Integer code;
         private String info;
 
-        IDs(Integer code, String info) {
+        Ids(Integer code, String info) {
             this.code = code;
             this.info = info;
         }
