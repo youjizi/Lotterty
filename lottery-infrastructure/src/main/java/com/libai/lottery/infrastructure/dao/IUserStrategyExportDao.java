@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 /**
- * @description:
+ * @description: 户策略计算结果
  * @author： 有骥子
  * @date: 2023/7/17
  */

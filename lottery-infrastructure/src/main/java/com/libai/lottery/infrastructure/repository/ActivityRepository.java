@@ -1,9 +1,14 @@
 package com.libai.lottery.infrastructure.repository;
 
 import com.libai.lottery.common.Constants;
+import com.libai.lottery.domain.activity.model.req.PartakeReq;
+import com.libai.lottery.domain.activity.model.vo.ActivityBillVO;
 import com.libai.lottery.domain.activity.model.vo.AlterStateVO;
 import com.libai.lottery.domain.activity.repository.IActivityRepository;
 import com.libai.lottery.infrastructure.dao.IActivityDao;
+import com.libai.lottery.infrastructure.dao.IUserTakeActivityCountDao;
+import com.libai.lottery.infrastructure.po.Activity;
+import com.libai.lottery.infrastructure.po.UserTakeActivityCount;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -20,6 +25,9 @@ public class ActivityRepository implements IActivityRepository {
     @Resource
     IActivityDao activityDao;
 
+    @Resource
+    IUserTakeActivityCountDao userTakeActivityCountDao;
+
     @Override
     public boolean alterStatus(Long activityId, Enum<Constants.ActivityState> currentState, Constants.ActivityState targetState) {
 
@@ -27,4 +35,36 @@ public class ActivityRepository implements IActivityRepository {
         int count = activityDao.alterStatus(alterStateVO);
         return 1 == count;
     }
+
+    @Override
+    public ActivityBillVO queryActivityBill(PartakeReq req) {
+            // 查询活动信息
+        Activity activity = activityDao.queryActivityById(req.getActivityId());
+
+        // 查询领取次数
+        UserTakeActivityCount userTakeActivityCountReq = new UserTakeActivityCount();
+        userTakeActivityCountReq.setActivityId(req.getActivityId());
+        userTakeActivityCountReq.setuId(req.getuId());
+        UserTakeActivityCount userTakeActivityCount = userTakeActivityCountDao.queryUserTakeActivityCount(userTakeActivityCountReq);
+        // 封装结果信息
+        ActivityBillVO activityBillVO = new ActivityBillVO();
+        activityBillVO.setuId(req.getuId());
+        activityBillVO.setActivityId(req.getActivityId());
+        activityBillVO.setActivityName(activity.getActivityName());
+        activityBillVO.setBeginDateTime(activity.getBeginDateTime());
+        activityBillVO.setEndDateTime(activity.getEndDateTime());
+        activityBillVO.setTakeCount(activity.getTakeCount());
+        activityBillVO.setStockSurplusCount(activity.getStockSurplusCount());
+        activityBillVO.setStrategyId(activity.getStrategyId());
+        activityBillVO.setState(activity.getState());
+        activityBillVO.setUserTakeLeftCount(null == userTakeActivityCount ? null : userTakeActivityCount.getLeftCount());
+
+        return activityBillVO;
+    }
+
+    @Override
+    public int subtractionActivityStock(Long activityId) {
+        return activityDao.subtractionActivityStock(activityId);
+    }
+
 }

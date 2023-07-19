@@ -1,6 +1,8 @@
 package com.libai.lottery.domain.activity.repository;
 
 import com.libai.lottery.common.Constants;
+import com.libai.lottery.domain.activity.model.req.PartakeReq;
+import com.libai.lottery.domain.activity.model.vo.ActivityBillVO;
 
 /**
  * @description: 活动仓储接口
@@ -17,4 +19,18 @@ public interface IActivityRepository {
      * @return 变更结果
      */
     boolean alterStatus(Long activityId, Enum<Constants.ActivityState> currentState, Constants.ActivityState targetState);
+
+    /**
+     * 查询活动账单
+     * @param req 请求参数
+     * @return 结果
+     */
+    ActivityBillVO queryActivityBill(PartakeReq req);
+
+    /**
+     * 扣除库存
+     * @param activityId 活动ID
+     * @return 扣除结果
+     */
+    int subtractionActivityStock(Long activityId);
 }
