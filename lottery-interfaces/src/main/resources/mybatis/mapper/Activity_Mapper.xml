@@ -28,5 +28,15 @@
         WHERE activity_id = #{activityId}
     </select>
 
+    <update id="alterStatus" parameterType="com.libai.lottery.domain.activity.model.vo.AlterStateVO">
+        UPDATE activity
+        SET state = #{targetState}
+        WHERE activity_id = #{activityId} AND state = #{currentState}
+    </update>
 
+    <update id="subtractionActivityStock" parameterType="java.lang.Long">
+        UPDATE activity
+        SET stock_surplus_count = stock_surplus_count - 1
+        WHERE  activity_id = #{activityId} AND stock_surplus_count > 0
+    </update>
 </mapper>
