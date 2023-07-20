@@ -1,10 +1,14 @@
 package com.libai.lottery.infrastructure.repository;
 
+import com.libai.lottery.domain.activity.model.vo.DrawOrderVO;
 import com.libai.lottery.domain.activity.repository.IUserTakeActivityRepository;
+import com.libai.lottery.infrastructure.dao.IUserStrategyExportDao;
 import com.libai.lottery.infrastructure.dao.IUserTakeActivityCountDao;
 import com.libai.lottery.infrastructure.dao.IUserTakeActivityDao;
+import com.libai.lottery.infrastructure.po.UserStrategyExport;
 import com.libai.lottery.infrastructure.po.UserTakeActivity;
 import com.libai.lottery.infrastructure.po.UserTakeActivityCount;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -25,6 +29,9 @@ public class UserTakeActivityRepository implements IUserTakeActivityRepository {
 
     @Resource
     private IUserTakeActivityDao  userTakeActivityDao;
+
+    @Resource
+    private IUserStrategyExportDao userStrategyExportDao;
 
     @Override
     public int subtractionLeftCount(Long activityId, Integer takeCount, Integer userTakeLeftCount, String uId) {
@@ -64,6 +71,22 @@ public class UserTakeActivityRepository implements IUserTakeActivityRepository {
         userTakeActivity.setUuid(uuid);
 
         userTakeActivityDao.insert(userTakeActivity);
+    }
+
+    @Override
+    public int lockTackActivity(String uId, Long activityId, Long takeId) {
+        UserTakeActivity userTakeActivity = new UserTakeActivity();
+        userTakeActivity.setuId(uId);
+        userTakeActivity.setActivityId(activityId);
+        userTakeActivity.setTakeId(takeId);
+        return userTakeActivityDao.lockTackActivity(userTakeActivity);
+    }
+
+    @Override
+    public void saveStrategyExport(DrawOrderVO drawOrder) {
+        UserStrategyExport userStrategyExport = new UserStrategyExport();
+        BeanUtils.copyProperties(drawOrder, userStrategyExport);
+        userStrategyExportDao.insert(userStrategyExport);
     }
 
 

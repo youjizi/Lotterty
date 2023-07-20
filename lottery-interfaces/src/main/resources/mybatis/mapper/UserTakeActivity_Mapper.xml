@@ -26,4 +26,9 @@
          #{takeCount}, #{strategyId}, #{state}, #{uuid}, now(), now())
     </insert>
 
+    <update id="lockTackActivity" parameterType="com.libai.lottery.infrastructure.po.UserTakeActivity" >
+        UPDATE user_take_activity SET state = 1
+        WHERE u_id = #{uId} AND activity_id = #{activityId} AND state = 0
+    </update>
+
 </mapper>
