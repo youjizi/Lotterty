@@ -32,7 +32,7 @@ public class partakeTest {
 
     @Test
     public void partake()  {
-        PartakeReq partakeReq = new PartakeReq("xiaohei", 100001L, new Date());
+        PartakeReq partakeReq = new PartakeReq("nihao", 100001L, new Date());
 
         PartakeResult partakeResult = activityPartake.doPartake(partakeReq);
         logger.info(JSON.toJSONString(partakeResult));
