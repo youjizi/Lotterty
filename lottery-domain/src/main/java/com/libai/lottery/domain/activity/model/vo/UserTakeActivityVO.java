@@ -1,13 +1,11 @@
-package com.libai.lottery.domain.activity.model.res;
-
-import com.libai.lottery.common.Result;
+package com.libai.lottery.domain.activity.model.vo;
 
 /**
- * @description:
+ * @description: 用户领取活动
  * @author： 有骥子
- * @date: 2023/7/17
+ * @date: 2023/7/21
  */
-public class PartakeResult extends Result {
+public class UserTakeActivityVO {
 
     /**
      * 策略ID
@@ -18,10 +16,6 @@ public class PartakeResult extends Result {
      * 活动领取ID
      */
     private Long takeId;
-
-    public PartakeResult(String code, String info) {
-        super(code, info);
-    }
 
     public Long getStrategyId() {
         return strategyId;

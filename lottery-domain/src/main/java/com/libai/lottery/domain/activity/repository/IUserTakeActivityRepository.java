@@ -1,6 +1,7 @@
 package com.libai.lottery.domain.activity.repository;
 
 import com.libai.lottery.domain.activity.model.vo.DrawOrderVO;
+import com.libai.lottery.domain.activity.model.vo.UserTakeActivityVO;
 
 import java.util.Date;
 
@@ -51,4 +52,12 @@ public interface IUserTakeActivityRepository {
      * @param drawOrder 中奖单
      */
     void saveStrategyExport(DrawOrderVO drawOrder);
+
+    /**
+     * 查询已领取未消费的活动单
+     * @param activityId 活动ID
+     * @param uId 用户ID
+     * @return 结果
+     */
+    UserTakeActivityVO queryNoConsumedTakeActivityOrder(Long activityId, String uId);
 }

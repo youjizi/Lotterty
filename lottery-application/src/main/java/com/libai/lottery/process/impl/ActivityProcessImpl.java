@@ -45,7 +45,7 @@ public class ActivityProcessImpl implements IActivityProcess {
             return new DrawProcessResult(partakeResult.getCode(), partakeResult.getInfo());
         }
         Long strategyId = partakeResult.getStrategyId();
-
+        Long takeId = partakeResult.getTakeId();
 
         // 2.执行抽奖
         DrawResult drawResult = drawExec.doDrawExec(new DrawReq(req.getuId(), strategyId));
@@ -55,7 +55,7 @@ public class ActivityProcessImpl implements IActivityProcess {
         DrawAwardInfo drawAwardInfo = drawResult.getDrawAwardInfo();
 
         // 3.结果落地
-        activityPartake.recordDrawOrder(buildDrawOrderVO(req, strategyId, drawAwardInfo));
+        activityPartake.recordDrawOrder(buildDrawOrderVO(req, strategyId, drawAwardInfo, takeId));
 
         // 4.发送MQ, 触发奖流程
 
@@ -64,12 +64,13 @@ public class ActivityProcessImpl implements IActivityProcess {
     }
 
 
-    private DrawOrderVO buildDrawOrderVO(DrawProcessReq req, Long strategyId, DrawAwardInfo drawAwardInfo) {
+    private DrawOrderVO buildDrawOrderVO(DrawProcessReq req, Long strategyId, DrawAwardInfo drawAwardInfo, Long takeId) {
         Long orderId = idGeneratorMap.get(Constants.Ids.SnowFlake).nextId();
         DrawOrderVO drawOrderVO = new DrawOrderVO();
         drawOrderVO.setuId(req.getuId());
         drawOrderVO.setActivityId(req.getActivityId());
         drawOrderVO.setOrderId(orderId);
+        drawOrderVO.setTakeId(takeId);
         drawOrderVO.setStrategyId(strategyId);
         drawOrderVO.setStrategyMode(drawAwardInfo.getStrategyMode());
         drawOrderVO.setGrantType(drawAwardInfo.getGrantType());

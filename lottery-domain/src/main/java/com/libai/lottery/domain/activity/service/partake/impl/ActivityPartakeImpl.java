@@ -8,7 +8,6 @@ import com.libai.lottery.domain.activity.model.vo.ActivityBillVO;
 import com.libai.lottery.domain.activity.model.vo.DrawOrderVO;
 import com.libai.lottery.domain.activity.repository.IUserTakeActivityRepository;
 import com.libai.lottery.domain.activity.service.partake.BaseActivityPartake;
-import com.libai.lottery.domain.support.ids.IIdGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DuplicateKeyException;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
-import java.util.Map;
 
 /**
  * @description: 活动参与功能实现
@@ -32,9 +30,6 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
 
     @Resource
     private IUserTakeActivityRepository userTakeActivityRepository;
-
-    @Resource
-    private Map<Constants.Ids, IIdGenerator> idGeneratorMap;
 
     @Resource
     private TransactionTemplate transactionTemplate;
@@ -82,7 +77,7 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
 
 
     @Override
-    protected Result grabActivity(PartakeReq partake, ActivityBillVO bill) {
+    protected Result grabActivity(PartakeReq partake, ActivityBillVO bill, Long takeId) {
         try {
             dbRouter.doRouter(partake.getuId());
             return transactionTemplate.execute(status -> {
@@ -97,8 +92,6 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
                     }
 
                     // 插入领取活动信息
-                    Long takeId = idGeneratorMap.get(Constants.Ids.SnowFlake).nextId();
-
                     userTakeActivityRepository.takeActivity(bill.getActivityId(), bill.getActivityName(), bill.getStrategyId(), bill.getTakeCount(), bill.getUserTakeLeftCount(), partake.getuId(), partake.getPartakeDate(), takeId);
 
                 } catch (DuplicateKeyException e) {

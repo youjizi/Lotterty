@@ -66,6 +66,16 @@ public class DrawAwardInfo {
         this.awardContent = awardContent;
     }
 
+    public DrawAwardInfo(String awardId, String awardName, Integer awardType, String awardContent, Integer strategyMode, Integer grantType, Date grantDate) {
+        this.awardId = awardId;
+        this.awardName = awardName;
+        this.awardType = awardType;
+        this.awardContent = awardContent;
+        this.strategyMode = strategyMode;
+        this.grantType = grantType;
+        this.grantDate = grantDate;
+    }
+
     public String getAwardId() {
         return awardId;
     }

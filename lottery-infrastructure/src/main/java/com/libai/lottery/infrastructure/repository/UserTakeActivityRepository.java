@@ -1,6 +1,7 @@
 package com.libai.lottery.infrastructure.repository;
 
 import com.libai.lottery.domain.activity.model.vo.DrawOrderVO;
+import com.libai.lottery.domain.activity.model.vo.UserTakeActivityVO;
 import com.libai.lottery.domain.activity.repository.IUserTakeActivityRepository;
 import com.libai.lottery.infrastructure.dao.IUserStrategyExportDao;
 import com.libai.lottery.infrastructure.dao.IUserTakeActivityCountDao;
@@ -86,7 +87,25 @@ public class UserTakeActivityRepository implements IUserTakeActivityRepository {
     public void saveStrategyExport(DrawOrderVO drawOrder) {
         UserStrategyExport userStrategyExport = new UserStrategyExport();
         BeanUtils.copyProperties(drawOrder, userStrategyExport);
+        userStrategyExport.setMqState(0);
+        userStrategyExport.setUuid(String.valueOf(drawOrder.getTakeId()));
         userStrategyExportDao.insert(userStrategyExport);
+    }
+
+    @Override
+    public UserTakeActivityVO queryNoConsumedTakeActivityOrder(Long activityId, String uId) {
+
+        UserTakeActivity userTakeActivityReq = new UserTakeActivity();
+        userTakeActivityReq.setuId(uId);
+        userTakeActivityReq.setActivityId(activityId);
+        UserTakeActivity userTakeActivity =  userTakeActivityDao.queryNoConsumedTakeActivityOrder(userTakeActivityReq);
+        if (null == userTakeActivity) {
+            return null;
+        }
+        UserTakeActivityVO userTakeActivityVO = new UserTakeActivityVO();
+        userTakeActivityVO.setTakeId(userTakeActivity.getTakeId());
+        userTakeActivityVO.setStrategyId(userTakeActivity.getStrategyId());
+        return userTakeActivityVO;
     }
 
 

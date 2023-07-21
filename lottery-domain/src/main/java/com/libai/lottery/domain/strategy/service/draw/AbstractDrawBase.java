@@ -43,7 +43,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
 
 
         // 包装结果
-        return buildDrawResult(req.getuId(), req.getStrategyId(), awardId);
+        return buildDrawResult(req.getuId(), req.getStrategyId(), awardId, strategy);
     }
 
 
@@ -96,7 +96,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
      * @param awardId 奖品ID
      * @return 中奖信息
      */
-    private DrawResult buildDrawResult(String uid, Long strategyId, String awardId) {
+    private DrawResult buildDrawResult(String uid, Long strategyId, String awardId, StrategyBriefVO strategyBriefVO) {
         if (null == awardId) {
             logger.info(" 执行抽奖完成【未中奖】, 用户：{} 策略ID：{}", uid, strategyId);
             return new DrawResult(uid, strategyId, Constants.DrawState.FAIL.getCode());
@@ -104,7 +104,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
 
         // 获取奖品信息
         AwardBriefVO award = super.queryAwardInfo(awardId);
-        DrawAwardInfo drawAwardInfo = new DrawAwardInfo(award.getAwardId(), award.getAwardName(), award.getAwardType(), award.getAwardContent());
+        DrawAwardInfo drawAwardInfo = new DrawAwardInfo(award.getAwardId(), award.getAwardName(), award.getAwardType(), award.getAwardContent(), strategyBriefVO.getStrategyMode(), strategyBriefVO.getGrantType(), strategyBriefVO.getGrantDate());
         logger.info("执行抽奖完成【已中奖】, 用户：{} 策略ID：{} 奖品ID：{} 奖品名称：{} 奖品类型： {} 奖品描述： {}", uid, strategyId, awardId, drawAwardInfo.getAwardName(), drawAwardInfo.getAwardType(), drawAwardInfo.getAwardContent());
         return new DrawResult(uid, strategyId, Constants.DrawState.SUCCESS.getCode(), drawAwardInfo);
 
