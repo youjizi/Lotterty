@@ -1,6 +1,6 @@
 package com.libai.lottery.domain.strategy.service.algorithm.impl;
 
-import com.libai.lottery.domain.strategy.model.vo.AwardRateInfo;
+import com.libai.lottery.domain.strategy.model.vo.AwardRateInfoVO;
 import com.libai.lottery.domain.strategy.service.algorithm.BaseAlgorithm;
 import org.springframework.stereotype.Component;
 
@@ -23,15 +23,15 @@ public class EntiretyRateRandomDrawAlgorithm extends BaseAlgorithm {
         BigDecimal differenceDenominator = BigDecimal.ZERO;
 
         // 排除掉不在抽奖范围的奖品ID集合
-        ArrayList<AwardRateInfo> differenceAwardRateList = new ArrayList<>();
-        List<AwardRateInfo> awardRateIntervalValList = awardRateInfoMap.get(strategyId);
-        for (AwardRateInfo awardRateInfo : awardRateIntervalValList) {
-            String awardId = awardRateInfo.getAwardId();
+        ArrayList<AwardRateInfoVO> differenceAwardRateList = new ArrayList<>();
+        List<AwardRateInfoVO> awardRateIntervalValList = awardRateInfoMap.get(strategyId);
+        for (AwardRateInfoVO awardRateInfoVO : awardRateIntervalValList) {
+            String awardId = awardRateInfoVO.getAwardId();
             if (excludeAwardIds.contains(awardId)) {
                 continue;
             }
-            differenceAwardRateList.add(awardRateInfo);
-            differenceDenominator = differenceDenominator.add(awardRateInfo.getAwardRate());
+            differenceAwardRateList.add(awardRateInfoVO);
+            differenceDenominator = differenceDenominator.add(awardRateInfoVO.getAwardRate());
         }
 
         // 前置判断
@@ -49,12 +49,12 @@ public class EntiretyRateRandomDrawAlgorithm extends BaseAlgorithm {
         // 循环获取奖品
         String awardId = "";
         int cursorVal = 0;
-        for (AwardRateInfo awardRateInfo : differenceAwardRateList) {
+        for (AwardRateInfoVO awardRateInfoVO : differenceAwardRateList) {
             //  当前奖品概率/总概率  mode： 最后一位加1
-            int rateVal = awardRateInfo.getAwardRate().divide(differenceDenominator, 2, BigDecimal.ROUND_UP).multiply(new BigDecimal(100)).intValue();
+            int rateVal = awardRateInfoVO.getAwardRate().divide(differenceDenominator, 2, BigDecimal.ROUND_UP).multiply(new BigDecimal(100)).intValue();
             // 当随机数小于区间end，则抽奖成功
             if (randomVal <= (cursorVal + rateVal)) {
-                awardId = awardRateInfo.getAwardId();
+                awardId = awardRateInfoVO.getAwardId();
                 break;
             }
             cursorVal += rateVal;

@@ -7,7 +7,7 @@ import com.libai.lottery.domain.award.service.factory.DistributionGoodsFactory;
 import com.libai.lottery.domain.award.service.goods.IDistributionGoods;
 import com.libai.lottery.domain.strategy.model.req.DrawReq;
 import com.libai.lottery.domain.strategy.model.res.DrawResult;
-import com.libai.lottery.domain.strategy.model.vo.DrawAwardInfo;
+import com.libai.lottery.domain.strategy.model.vo.DrawAwardInfoVO;
 import com.libai.lottery.domain.strategy.service.draw.IDrawExec;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,9 +44,9 @@ public class drawTest {
         DrawResult result= drawExec.doDrawExec(new DrawReq("李白", 10001L));
         logger.info(JSON.toJSONString(result.getDrawAwardInfo()));
 
-        DrawAwardInfo drawAwardInfo = result.getDrawAwardInfo();
-        IDistributionGoods distributionGoodsService = factory.getDistributionGoodsService(drawAwardInfo.getAwardType());
-        DistributionRes order123 = distributionGoodsService.doDistribution(new GoodsReq(result.getuId(), "order123", drawAwardInfo.getAwardId(), drawAwardInfo.getAwardName(), drawAwardInfo.getAwardContent()));
+        DrawAwardInfoVO drawAwardInfoVO = result.getDrawAwardInfo();
+        IDistributionGoods distributionGoodsService = factory.getDistributionGoodsService(drawAwardInfoVO.getAwardType());
+        DistributionRes order123 = distributionGoodsService.doDistribution(new GoodsReq(result.getuId(), "order123", drawAwardInfoVO.getAwardId(), drawAwardInfoVO.getAwardName(), drawAwardInfoVO.getAwardContent()));
         logger.info(JSON.toJSONString(order123));
 
 
