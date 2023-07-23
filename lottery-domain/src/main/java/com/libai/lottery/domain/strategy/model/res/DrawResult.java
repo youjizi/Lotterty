@@ -1,7 +1,7 @@
 package com.libai.lottery.domain.strategy.model.res;
 
 import com.libai.lottery.common.Constants;
-import com.libai.lottery.domain.strategy.model.vo.DrawAwardInfo;
+import com.libai.lottery.domain.strategy.model.vo.DrawAwardInfoVO;
 
 /**
  * @description: 抽奖结果
@@ -28,7 +28,7 @@ public class DrawResult {
     /**
      * 中奖奖品信息
      */
-    private DrawAwardInfo drawAwardInfo;
+    private DrawAwardInfoVO drawAwardInfoVO;
 
 
     public DrawResult() {
@@ -40,11 +40,11 @@ public class DrawResult {
         this.drawState = drawState;
     }
 
-    public DrawResult(String uId, Long strategyId, Integer drawState, DrawAwardInfo drawAwardInfo) {
+    public DrawResult(String uId, Long strategyId, Integer drawState, DrawAwardInfoVO drawAwardInfoVO) {
         this.uId = uId;
         this.strategyId = strategyId;
         this.drawState = drawState;
-        this.drawAwardInfo = drawAwardInfo;
+        this.drawAwardInfoVO = drawAwardInfoVO;
     }
 
     public String getuId() {
@@ -71,11 +71,11 @@ public class DrawResult {
         this.drawState = drawState;
     }
 
-    public DrawAwardInfo getDrawAwardInfo() {
-        return drawAwardInfo;
+    public DrawAwardInfoVO getDrawAwardInfo() {
+        return drawAwardInfoVO;
     }
 
-    public void setDrawAwardInfo(DrawAwardInfo drawAwardInfo) {
-        this.drawAwardInfo = drawAwardInfo;
+    public void setDrawAwardInfo(DrawAwardInfoVO drawAwardInfoVO) {
+        this.drawAwardInfoVO = drawAwardInfoVO;
     }
 }

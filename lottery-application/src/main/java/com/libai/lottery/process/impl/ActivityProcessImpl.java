@@ -5,14 +5,18 @@ import com.libai.lottery.domain.activity.model.req.PartakeReq;
 import com.libai.lottery.domain.activity.model.res.PartakeResult;
 import com.libai.lottery.domain.activity.model.vo.DrawOrderVO;
 import com.libai.lottery.domain.activity.service.partake.IActivityPartake;
+import com.libai.lottery.domain.rule.model.req.DecisionMatterReq;
+import com.libai.lottery.domain.rule.model.res.EngineResult;
+import com.libai.lottery.domain.rule.service.engine.EngineFilter;
 import com.libai.lottery.domain.strategy.model.req.DrawReq;
 import com.libai.lottery.domain.strategy.model.res.DrawResult;
-import com.libai.lottery.domain.strategy.model.vo.DrawAwardInfo;
+import com.libai.lottery.domain.strategy.model.vo.DrawAwardInfoVO;
 import com.libai.lottery.domain.strategy.service.draw.IDrawExec;
 import com.libai.lottery.domain.support.ids.IIdGenerator;
 import com.libai.lottery.process.IActivityProcess;
 import com.libai.lottery.process.req.DrawProcessReq;
 import com.libai.lottery.process.res.DrawProcessResult;
+import com.libai.lottery.process.res.RuleQuantificationCrowdResult;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,6 +37,9 @@ public class ActivityProcessImpl implements IActivityProcess {
     @Resource
     private IDrawExec drawExec;
 
+    @Resource(name = "ruleEngineHandle")
+    private EngineFilter engineFilter;
+
     @Resource
     private Map<Constants.Ids, IIdGenerator> idGeneratorMap;
 
@@ -52,19 +59,35 @@ public class ActivityProcessImpl implements IActivityProcess {
         if (Constants.DrawState.FAIL.getCode().equals(drawResult.getDrawState())) {
             return new DrawProcessResult(Constants.ResponseCode.LOSING_DRAW.getCode(), Constants.ResponseCode.LOSING_DRAW.getInfo());
         }
-        DrawAwardInfo drawAwardInfo = drawResult.getDrawAwardInfo();
+        DrawAwardInfoVO drawAwardInfoVO = drawResult.getDrawAwardInfo();
 
         // 3.结果落地
-        activityPartake.recordDrawOrder(buildDrawOrderVO(req, strategyId, drawAwardInfo, takeId));
+        activityPartake.recordDrawOrder(buildDrawOrderVO(req, strategyId, drawAwardInfoVO, takeId));
 
         // 4.发送MQ, 触发奖流程
 
         // 5. 返回结果
-        return new DrawProcessResult(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo(), drawAwardInfo);
+        return new DrawProcessResult(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo(), drawAwardInfoVO);
+    }
+
+    @Override
+    public RuleQuantificationCrowdResult doRuleQuantificationCrowd(DecisionMatterReq req) {
+
+        EngineResult engineResult = engineFilter.process(req);
+
+        if (!engineResult.isSuccess()) {
+            return new RuleQuantificationCrowdResult(Constants.ResponseCode.RULE_ERR.getCode(), Constants.ResponseCode.RULE_ERR.getInfo());
+        }
+
+        RuleQuantificationCrowdResult ruleQuantificationCrowdResult = new RuleQuantificationCrowdResult(Constants.ResponseCode.SUCCESS.getCode(), Constants.ResponseCode.SUCCESS.getInfo());
+        ruleQuantificationCrowdResult.setActivityId(Long.valueOf(engineResult.getNodeValue()));
+
+
+        return ruleQuantificationCrowdResult;
     }
 
 
-    private DrawOrderVO buildDrawOrderVO(DrawProcessReq req, Long strategyId, DrawAwardInfo drawAwardInfo, Long takeId) {
+    private DrawOrderVO buildDrawOrderVO(DrawProcessReq req, Long strategyId, DrawAwardInfoVO drawAwardInfoVO, Long takeId) {
         Long orderId = idGeneratorMap.get(Constants.Ids.SnowFlake).nextId();
         DrawOrderVO drawOrderVO = new DrawOrderVO();
         drawOrderVO.setuId(req.getuId());
@@ -72,14 +95,14 @@ public class ActivityProcessImpl implements IActivityProcess {
         drawOrderVO.setOrderId(orderId);
         drawOrderVO.setTakeId(takeId);
         drawOrderVO.setStrategyId(strategyId);
-        drawOrderVO.setStrategyMode(drawAwardInfo.getStrategyMode());
-        drawOrderVO.setGrantType(drawAwardInfo.getGrantType());
-        drawOrderVO.setGrantDate(drawAwardInfo.getGrantDate());
+        drawOrderVO.setStrategyMode(drawAwardInfoVO.getStrategyMode());
+        drawOrderVO.setGrantType(drawAwardInfoVO.getGrantType());
+        drawOrderVO.setGrantDate(drawAwardInfoVO.getGrantDate());
         drawOrderVO.setGrantState(Constants.GrantState.INIT.getCode());
-        drawOrderVO.setAwardId(drawAwardInfo.getAwardId());
-        drawOrderVO.setAwardType(drawAwardInfo.getAwardType());
-        drawOrderVO.setAwardName(drawAwardInfo.getAwardName());
-        drawOrderVO.setAwardContent(drawAwardInfo.getAwardContent());
+        drawOrderVO.setAwardId(drawAwardInfoVO.getAwardId());
+        drawOrderVO.setAwardType(drawAwardInfoVO.getAwardType());
+        drawOrderVO.setAwardName(drawAwardInfoVO.getAwardName());
+        drawOrderVO.setAwardContent(drawAwardInfoVO.getAwardContent());
         return drawOrderVO;
     }
 }

@@ -81,11 +81,11 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
         if (algorithm.isExistRateTuple(strategyId)) {
             return;
         }
-        List<AwardRateInfo> awardRateInfoList = new ArrayList<>(strategyDetailList.size());
+        List<AwardRateInfoVO> awardRateInfoVOList = new ArrayList<>(strategyDetailList.size());
         for (StrategyDetailBriefVO strategyDetail : strategyDetailList) {
-            awardRateInfoList.add(new AwardRateInfo(strategyDetail.getAwardId(), strategyDetail.getAwardRate()));
+            awardRateInfoVOList.add(new AwardRateInfoVO(strategyDetail.getAwardId(), strategyDetail.getAwardRate()));
         }
-        algorithm.initRateTuple(strategyId, awardRateInfoList);
+        algorithm.initRateTuple(strategyId, awardRateInfoVOList);
 
     }
 
@@ -104,9 +104,9 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
 
         // 获取奖品信息
         AwardBriefVO award = super.queryAwardInfo(awardId);
-        DrawAwardInfo drawAwardInfo = new DrawAwardInfo(award.getAwardId(), award.getAwardName(), award.getAwardType(), award.getAwardContent(), strategyBriefVO.getStrategyMode(), strategyBriefVO.getGrantType(), strategyBriefVO.getGrantDate());
-        logger.info("执行抽奖完成【已中奖】, 用户：{} 策略ID：{} 奖品ID：{} 奖品名称：{} 奖品类型： {} 奖品描述： {}", uid, strategyId, awardId, drawAwardInfo.getAwardName(), drawAwardInfo.getAwardType(), drawAwardInfo.getAwardContent());
-        return new DrawResult(uid, strategyId, Constants.DrawState.SUCCESS.getCode(), drawAwardInfo);
+        DrawAwardInfoVO drawAwardInfoVO = new DrawAwardInfoVO(award.getAwardId(), award.getAwardName(), award.getAwardType(), award.getAwardContent(), strategyBriefVO.getStrategyMode(), strategyBriefVO.getGrantType(), strategyBriefVO.getGrantDate());
+        logger.info("执行抽奖完成【已中奖】, 用户：{} 策略ID：{} 奖品ID：{} 奖品名称：{} 奖品类型： {} 奖品描述： {}", uid, strategyId, awardId, drawAwardInfoVO.getAwardName(), drawAwardInfoVO.getAwardType(), drawAwardInfoVO.getAwardContent());
+        return new DrawResult(uid, strategyId, Constants.DrawState.SUCCESS.getCode(), drawAwardInfoVO);
 
     }
 

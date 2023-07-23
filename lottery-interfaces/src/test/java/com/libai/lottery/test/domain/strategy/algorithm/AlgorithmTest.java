@@ -1,6 +1,6 @@
 package com.libai.lottery.test.domain.strategy.algorithm;
 
-import com.libai.lottery.domain.strategy.model.vo.AwardRateInfo;
+import com.libai.lottery.domain.strategy.model.vo.AwardRateInfoVO;
 import com.libai.lottery.domain.strategy.service.algorithm.IDrawAlgorithm;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -69,7 +69,7 @@ public class AlgorithmTest {
 
     @Test
     public void test_DrawStrategy() {
-        List<AwardRateInfo> strategyList = new ArrayList<>();
+        List<AwardRateInfoVO> strategyList = new ArrayList<>();
 //        strategyList.add(new AwardRateInfo("特等奖：100W", new BigDecimal("0.02")));
 //        strategyList.add(new AwardRateInfo("一等奖：彩电", new BigDecimal("0.08")));
 //        strategyList.add(new AwardRateInfo("二等奖：树苗", new BigDecimal("0.3")));

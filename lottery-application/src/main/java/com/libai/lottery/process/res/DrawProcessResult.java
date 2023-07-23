@@ -1,7 +1,7 @@
 package com.libai.lottery.process.res;
 
 import com.libai.lottery.common.Result;
-import com.libai.lottery.domain.strategy.model.vo.DrawAwardInfo;
+import com.libai.lottery.domain.strategy.model.vo.DrawAwardInfoVO;
 
 /**
  * @description: 抽奖结果
@@ -10,23 +10,23 @@ import com.libai.lottery.domain.strategy.model.vo.DrawAwardInfo;
  */
 public class DrawProcessResult extends Result {
 
-    private DrawAwardInfo drawAwardInfo;
+    private DrawAwardInfoVO drawAwardInfoVO;
 
 
     public DrawProcessResult(String code, String info) {
         super(code, info);
     }
 
-    public DrawProcessResult(String code, String info, DrawAwardInfo drawAwardInfo) {
+    public DrawProcessResult(String code, String info, DrawAwardInfoVO drawAwardInfoVO) {
         super(code, info);
-        this.drawAwardInfo = drawAwardInfo;
+        this.drawAwardInfoVO = drawAwardInfoVO;
     }
 
-    public DrawAwardInfo getDrawAwardInfo() {
-        return drawAwardInfo;
+    public DrawAwardInfoVO getDrawAwardInfo() {
+        return drawAwardInfoVO;
     }
 
-    public void setDrawAwardInfo(DrawAwardInfo drawAwardInfo) {
-        this.drawAwardInfo = drawAwardInfo;
+    public void setDrawAwardInfo(DrawAwardInfoVO drawAwardInfoVO) {
+        this.drawAwardInfoVO = drawAwardInfoVO;
     }
 }
