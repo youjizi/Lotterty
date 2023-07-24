@@ -11,6 +11,11 @@ public class DrawAwardInfoVO {
 
 
     /**
+     * 用户ID
+     */
+    private String uId;
+
+    /**
      * 奖品ID
      */
     private String awardId;
@@ -74,6 +79,25 @@ public class DrawAwardInfoVO {
         this.strategyMode = strategyMode;
         this.grantType = grantType;
         this.grantDate = grantDate;
+    }
+
+    public DrawAwardInfoVO(String uId, String awardId, String awardName, Integer awardType, String awardContent, Integer strategyMode, Integer grantType, Date grantDate) {
+        this.uId = uId;
+        this.awardId = awardId;
+        this.awardName = awardName;
+        this.awardType = awardType;
+        this.awardContent = awardContent;
+        this.strategyMode = strategyMode;
+        this.grantType = grantType;
+        this.grantDate = grantDate;
+    }
+
+    public String getuId() {
+        return uId;
+    }
+
+    public void setuId(String uId) {
+        this.uId = uId;
     }
 
     public String getAwardId() {
