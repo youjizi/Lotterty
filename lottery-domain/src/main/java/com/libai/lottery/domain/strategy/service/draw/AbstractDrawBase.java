@@ -104,7 +104,7 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
 
         // 获取奖品信息
         AwardBriefVO award = super.queryAwardInfo(awardId);
-        DrawAwardInfoVO drawAwardInfoVO = new DrawAwardInfoVO(award.getAwardId(), award.getAwardName(), award.getAwardType(), award.getAwardContent(), strategyBriefVO.getStrategyMode(), strategyBriefVO.getGrantType(), strategyBriefVO.getGrantDate());
+        DrawAwardInfoVO drawAwardInfoVO = new DrawAwardInfoVO(uid, award.getAwardId(), award.getAwardName(), award.getAwardType(), award.getAwardContent(), strategyBriefVO.getStrategyMode(), strategyBriefVO.getGrantType(), strategyBriefVO.getGrantDate());
         logger.info("执行抽奖完成【已中奖】, 用户：{} 策略ID：{} 奖品ID：{} 奖品名称：{} 奖品类型： {} 奖品描述： {}", uid, strategyId, awardId, drawAwardInfoVO.getAwardName(), drawAwardInfoVO.getAwardType(), drawAwardInfoVO.getAwardContent());
         return new DrawResult(uid, strategyId, Constants.DrawState.SUCCESS.getCode(), drawAwardInfoVO);
 
