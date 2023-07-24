@@ -77,7 +77,7 @@ public class AlgorithmTest {
 
         ArrayList<String> excludeAwardIds = new ArrayList<>();
         excludeAwardIds.add("特等奖：100W");
-        defaultRateRandomDrawAlgorithm.initRateTuple(100001L, strategyList);
+        defaultRateRandomDrawAlgorithm.initRateTuple(100001L, 2, strategyList);
         String result = defaultRateRandomDrawAlgorithm.randomDraw(100001L,excludeAwardIds );
         System.out.println(result);
     }

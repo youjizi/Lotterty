@@ -1,5 +1,6 @@
 package com.libai.lottery.domain.strategy.service.algorithm;
 
+import com.libai.lottery.common.Constants;
 import com.libai.lottery.domain.strategy.model.vo.AwardRateInfoVO;
 
 import java.math.BigDecimal;
@@ -35,9 +36,14 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm{
     protected Map<Long, List<AwardRateInfoVO>> awardRateInfoMap = new ConcurrentHashMap<>();
 
     @Override
-    public void initRateTuple(Long strategyId, List<AwardRateInfoVO> awardRateInfoVOList) {
+    public void initRateTuple(Long strategyId, Integer strategyMode, List<AwardRateInfoVO> awardRateInfoVOList) {
         // 保存奖品概率信息
         awardRateInfoMap.put(strategyId, awardRateInfoVOList);
+
+        // 不是单体概率则不需要初始化
+        if (!Constants.StrategyMode.SINGLE.getCode().equals(strategyMode)) {
+            return;
+        }
 
         String[] rateTuple = rateTupleMap.computeIfAbsent(strategyId, k -> new String[RATE_TUPLE_LENGTH]);
         // 关键变量，避免重复区间
@@ -54,8 +60,8 @@ public abstract class BaseAlgorithm implements IDrawAlgorithm{
     }
 
     @Override
-    public boolean isExistRateTuple(Long strategyId) {
-        return rateTupleMap.containsKey(strategyId);
+    public boolean isExistAwardRateInfoMap(Long strategyId) {
+        return awardRateInfoMap.containsKey(strategyId);
     }
 
     /**

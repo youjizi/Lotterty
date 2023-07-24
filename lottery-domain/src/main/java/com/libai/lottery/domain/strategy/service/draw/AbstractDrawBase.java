@@ -71,21 +71,17 @@ public abstract class AbstractDrawBase extends DrawStrategySupport implements ID
      */
     private void checkAndInitRateData(Long strategyId, Integer strategyMode, List<StrategyDetailBriefVO> strategyDetailList) {
 
-        // 不是单体概率则不需要初始化
-//        if (!Constants.StrategyMode.SINGLE.getCode().equals(strategyMode)) {
-//            return;
-//        }
         IDrawAlgorithm algorithm = drawAlgorithmMap.get(strategyMode);
 
         // 判断是否已经初始化
-        if (algorithm.isExistRateTuple(strategyId)) {
+        if (algorithm.isExistAwardRateInfoMap(strategyId)) {
             return;
         }
         List<AwardRateInfoVO> awardRateInfoVOList = new ArrayList<>(strategyDetailList.size());
         for (StrategyDetailBriefVO strategyDetail : strategyDetailList) {
             awardRateInfoVOList.add(new AwardRateInfoVO(strategyDetail.getAwardId(), strategyDetail.getAwardRate()));
         }
-        algorithm.initRateTuple(strategyId, awardRateInfoVOList);
+        algorithm.initRateTuple(strategyId, strategyMode, awardRateInfoVOList);
 
     }
 
