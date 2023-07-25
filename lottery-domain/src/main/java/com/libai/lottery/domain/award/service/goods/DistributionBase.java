@@ -18,8 +18,8 @@ public class DistributionBase {
     @Resource
     IAwardRepository awardRepository;
 
-    protected void updateUserAwardSate(String uId, String orderId, String awardId, Integer awardState, String awardStateInfo) {
-        // TODO 后期添加更新分库分表中，用户个人的抽奖记录表中奖品发奖状态
-        logger.info("TODO 后期添加更新分库分表中，用户个人的抽奖记录表中奖品发奖状态 uId：{}", uId);
+    protected void updateUserAwardSate(String uId, Long orderId, String awardId, Integer awardState) {
+        awardRepository.updateUserGrantAwardSate(uId, orderId, awardId, awardState);
+        logger.info("用户个人的抽奖记录表中奖品发奖状态 uId：{}", uId);
     }
 }

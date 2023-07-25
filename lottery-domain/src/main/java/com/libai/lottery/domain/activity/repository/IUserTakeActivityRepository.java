@@ -60,4 +60,12 @@ public interface IUserTakeActivityRepository {
      * @return 结果
      */
     UserTakeActivityVO queryNoConsumedTakeActivityOrder(Long activityId, String uId);
+
+    /**
+     * 改变mq状态
+     * @param uId 用户Id
+     * @param orderId 用户抽奖订单Id
+     * @param code 状态码
+     */
+    void updateInvoiceMqState(String uId, Long orderId, Integer code);
 }

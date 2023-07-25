@@ -46,7 +46,7 @@ public class drawTest {
 
         DrawAwardInfoVO drawAwardInfoVO = result.getDrawAwardInfo();
         IDistributionGoods distributionGoodsService = factory.getDistributionGoodsService(drawAwardInfoVO.getAwardType());
-        DistributionRes order123 = distributionGoodsService.doDistribution(new GoodsReq(result.getuId(), "order123", drawAwardInfoVO.getAwardId(), drawAwardInfoVO.getAwardName(), drawAwardInfoVO.getAwardContent()));
+        DistributionRes order123 = distributionGoodsService.doDistribution(new GoodsReq(result.getuId(), 123L, drawAwardInfoVO.getAwardId(), drawAwardInfoVO.getAwardName(), drawAwardInfoVO.getAwardContent()));
         logger.info(JSON.toJSONString(order123));
 
 

@@ -28,8 +28,13 @@ public class ProcessTest {
     IActivityProcess activityProcess;
 
     @Test
-    public void test() {
-        DrawProcessResult result = activityProcess.doDrawProcess(new DrawProcessReq("libai", 100001L));
-        logger.info(result.toString());
+    public void test() throws InterruptedException {
+
+        while (true) {
+
+            DrawProcessResult result = activityProcess.doDrawProcess(new DrawProcessReq("laidehua", 100001L));
+//            Thread.sleep(5000L);
+            logger.info(result.toString());
+        }
     }
 }

@@ -25,7 +25,7 @@ public class CouponGoods extends DistributionBase implements IDistributionGoods 
         logger.info("拟调用优惠卷发放接口 uId: {} awardContent： {}", req.getuId(), req.getAwardContent());
 
         // 更新用户领奖结果
-        super.updateUserAwardSate(req.getuId(), req.getOrderId(), req.getAwardId(), Constants.AwardState.SUCCESS.getCode(), Constants.AwardState.SUCCESS.getInfo());
+        super.updateUserAwardSate(req.getuId(), req.getOrderId(), req.getAwardId(), Constants.AwardState.SUCCESS.getCode());
 
         return new DistributionRes(req.getuId(), Constants.AwardState.SUCCESS.getCode(), Constants.AwardState.SUCCESS.getInfo());
     }
