@@ -3,6 +3,7 @@ package com.libai.lottery.infrastructure.repository;
 import com.libai.lottery.common.Constants;
 import com.libai.lottery.domain.activity.model.req.PartakeReq;
 import com.libai.lottery.domain.activity.model.vo.ActivityBillVO;
+import com.libai.lottery.domain.activity.model.vo.ActivityVO;
 import com.libai.lottery.domain.activity.model.vo.AlterStateVO;
 import com.libai.lottery.domain.activity.repository.IActivityRepository;
 import com.libai.lottery.infrastructure.dao.IActivityDao;
@@ -12,6 +13,8 @@ import com.libai.lottery.infrastructure.po.UserTakeActivityCount;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @description: 活动仓储实现
@@ -65,6 +68,24 @@ public class ActivityRepository implements IActivityRepository {
     @Override
     public int subtractionActivityStock(Long activityId) {
         return activityDao.subtractionActivityStock(activityId);
+    }
+
+    @Override
+    public List<ActivityVO> scanToDoActivityList(Long id) {
+        List<Activity> activityList =  activityDao.scanToDoActivityList(id);
+        List<ActivityVO> activityVOList = new ArrayList<>(activityList.size());
+        for (Activity activity : activityList) {
+            ActivityVO activityVO = new ActivityVO();
+            activityVO.setActivityId(activity.getId());
+            activityVO.setActivityId(activity.getActivityId());
+            activityVO.setActivityName(activity.getActivityName());
+            activityVO.setBeginDateTime(activity.getBeginDateTime());
+            activityVO.setEndDateTime(activity.getEndDateTime());
+            activityVO.setState(activity.getState());
+            activityVO.setCreator(activity.getCreator());
+            activityVOList.add(activityVO);
+        }
+        return activityVOList;
     }
 
 }

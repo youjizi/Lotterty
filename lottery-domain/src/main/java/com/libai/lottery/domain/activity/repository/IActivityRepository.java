@@ -3,6 +3,9 @@ package com.libai.lottery.domain.activity.repository;
 import com.libai.lottery.common.Constants;
 import com.libai.lottery.domain.activity.model.req.PartakeReq;
 import com.libai.lottery.domain.activity.model.vo.ActivityBillVO;
+import com.libai.lottery.domain.activity.model.vo.ActivityVO;
+
+import java.util.List;
 
 /**
  * @description: 活动仓储接口
@@ -33,4 +36,12 @@ public interface IActivityRepository {
      * @return 扣除结果
      */
     int subtractionActivityStock(Long activityId);
+
+    /**
+     * 扫描待处理的活动列表，状态为：通过、活动中
+     *
+     * @param id ID
+     * @return 待处理的活动集合
+     */
+    List<ActivityVO> scanToDoActivityList(Long id);
 }

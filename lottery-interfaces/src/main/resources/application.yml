@@ -88,7 +88,7 @@ dubbo:
 xxl:
   job:
     admin:
-      addresses: http://127.0.0.1:7397/xxl-job-admin
+      addresses: http://127.0.0.1:8090/xxl-job-admin
     executor:
       address:
       appname: lottery-job
@@ -96,4 +96,4 @@ xxl:
       port: 9999
       logpath: D:/Users/fuzhengwei/itstack/data/applogs/xxl-job/jobhandler
       logretentiondays: 50
-    accessToken:
+    accessToken: default_token
