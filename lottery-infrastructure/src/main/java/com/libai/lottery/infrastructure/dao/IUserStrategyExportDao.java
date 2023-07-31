@@ -46,4 +46,11 @@ public interface IUserStrategyExportDao {
      */
     @DBRouter
     void updateUserGrantAwardSate(UserStrategyExport userStrategyExport);
+
+    /**
+     * 扫描奖品账单MQ状态： 0未发送， 2发送失败
+     * @return 集合
+     */
+    List<UserStrategyExport> scanInvoiceMqState();
+
 }

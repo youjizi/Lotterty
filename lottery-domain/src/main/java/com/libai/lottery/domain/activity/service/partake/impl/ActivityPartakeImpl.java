@@ -6,6 +6,7 @@ import com.libai.lottery.common.Result;
 import com.libai.lottery.domain.activity.model.req.PartakeReq;
 import com.libai.lottery.domain.activity.model.vo.ActivityBillVO;
 import com.libai.lottery.domain.activity.model.vo.DrawOrderVO;
+import com.libai.lottery.domain.activity.model.vo.InvoiceVO;
 import com.libai.lottery.domain.activity.repository.IUserTakeActivityRepository;
 import com.libai.lottery.domain.activity.service.partake.BaseActivityPartake;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @description: 活动参与功能实现
@@ -142,5 +144,20 @@ public class ActivityPartakeImpl extends BaseActivityPartake {
     @Override
     public void updateInvoiceMqState(String uId, Long orderId, Integer code) {
         userTakeActivityRepository.updateInvoiceMqState(uId, orderId, code);
+    }
+
+    @Override
+    public List<InvoiceVO> scanInvoiceMqState(int dbCount, int tbCount) {
+        try {
+            // 设置路由
+            dbRouter.setDBKey(dbCount);
+            dbRouter.setTBKey(tbCount);
+            // 查询数据
+            return userTakeActivityRepository.scanInvoiceMqState();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            dbRouter.clear();
+        }
     }
 }

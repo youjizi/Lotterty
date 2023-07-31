@@ -1,9 +1,11 @@
 package com.libai.lottery.domain.activity.repository;
 
 import com.libai.lottery.domain.activity.model.vo.DrawOrderVO;
+import com.libai.lottery.domain.activity.model.vo.InvoiceVO;
 import com.libai.lottery.domain.activity.model.vo.UserTakeActivityVO;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @description: 用户参与活动仓储接口
@@ -68,4 +70,11 @@ public interface IUserTakeActivityRepository {
      * @param code 状态码
      */
     void updateInvoiceMqState(String uId, Long orderId, Integer code);
+
+    /**
+     * 扫描奖品账单MQ状态： 0未发送， 2发送失败
+     * @return 集合
+     */
+    List<InvoiceVO> scanInvoiceMqState();
+
 }

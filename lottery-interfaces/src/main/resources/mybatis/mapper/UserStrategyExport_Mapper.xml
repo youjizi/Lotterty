@@ -54,4 +54,10 @@
         WHERE u_id = #{uId}  AND order_id = #{orderId}  AND award_id = #{awardId}
     </update>
 
+    <select id="scanInvoiceMqState" resultMap="userStrategyExportMap" >
+        SELECT u_id, order_id, award_id, award_type, award_name, award_content
+        FROM user_strategy_export
+        WHERE mq_state = 2 OR (mq_state = 0 AND TIMESTAMPDIFF(SECOND, create_time, NOW()) > 1800 )
+    </select>
+
 </mapper>
