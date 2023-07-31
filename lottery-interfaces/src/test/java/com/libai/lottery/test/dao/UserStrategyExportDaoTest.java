@@ -5,6 +5,7 @@ import com.libai.lottery.common.Constants;
 import com.libai.lottery.domain.support.ids.IIdGenerator;
 import com.libai.lottery.infrastructure.dao.IUserStrategyExportDao;
 import com.libai.lottery.infrastructure.po.UserStrategyExport;
+import com.libai.lottery.infrastructure.util.RedisUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -36,6 +37,9 @@ public class UserStrategyExportDaoTest {
     @Resource
     private Map<Constants.Ids, IIdGenerator> idGeneratorMap;
 
+    @Resource
+    private RedisUtil redisUtil;
+
     @Test
     public void test_insert() {
         UserStrategyExport userStrategyExport = new UserStrategyExport();
@@ -61,5 +65,20 @@ public class UserStrategyExportDaoTest {
         List<UserStrategyExport> uhdgkw766120d = userStrategyExportDao.queryUserStrategyExportByUId("Uhdgkw766120d");
         logger.info("测试结果：{}", JSON.toJSONString(uhdgkw766120d));
     }
+
+
+    @Test
+    public void test_set() {
+        redisUtil.set("lottery_user_key","11111");
+    }
+
+
+
+    @Test
+    public void test_get() {
+        Object user = redisUtil.get("lottery_user_key");
+        logger.info("测试结果：{}", JSON.toJSONString(user));
+    }
+
 
 }
