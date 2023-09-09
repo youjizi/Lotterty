@@ -1,5 +1,6 @@
 package com.libai.lottery.interfaces.facade;
 
+
 import com.alibaba.fastjson.JSON;
 import com.libai.lottery.common.Constants;
 import com.libai.lottery.domain.rule.model.req.DecisionMatterReq;
@@ -14,9 +15,10 @@ import libai.lottery.rpc.dto.AwardDTO;
 import libai.lottery.rpc.req.DrawReq;
 import libai.lottery.rpc.req.QuantificationDrawReq;
 import libai.lottery.rpc.res.DrawRes;
+
+import org.apache.dubbo.config.annotation.DubboService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 
@@ -26,7 +28,7 @@ import javax.annotation.Resource;
  * @date: 2023/7/23
  */
 
-@Controller
+@DubboService
 public class LotteryActivityBooth implements ILotteryActivityBooth {
 
     private Logger logger = LoggerFactory.getLogger(LotteryActivityBooth.class);

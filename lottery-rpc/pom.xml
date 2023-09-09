@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>com.libai</groupId>
-            <artifactId>lottery-application</artifactId>
+            <artifactId>lottery-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

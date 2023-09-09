@@ -3,6 +3,7 @@ package com.libai.lottery.domain.activity.service.partake;
 import com.libai.lottery.common.Result;
 import com.libai.lottery.domain.activity.model.req.PartakeReq;
 import com.libai.lottery.domain.activity.model.res.PartakeResult;
+import com.libai.lottery.domain.activity.model.vo.ActivityPartakeRecordVO;
 import com.libai.lottery.domain.activity.model.vo.DrawOrderVO;
 import com.libai.lottery.domain.activity.model.vo.InvoiceVO;
 
@@ -45,4 +46,10 @@ public interface IActivityPartake {
      * @return 扫描集合
      */
     List<InvoiceVO> scanInvoiceMqState(int dbCount, int tbCount);
+
+    /**
+     * 更新活动库存
+     * @param activityPartakeRecordVO 活动领取记录
+     */
+    void updateActivityStock(ActivityPartakeRecordVO activityPartakeRecordVO);
 }

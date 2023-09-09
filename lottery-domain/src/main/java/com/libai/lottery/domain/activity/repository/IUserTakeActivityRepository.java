@@ -1,5 +1,6 @@
 package com.libai.lottery.domain.activity.repository;
 
+import com.libai.lottery.domain.activity.model.vo.ActivityPartakeRecordVO;
 import com.libai.lottery.domain.activity.model.vo.DrawOrderVO;
 import com.libai.lottery.domain.activity.model.vo.InvoiceVO;
 import com.libai.lottery.domain.activity.model.vo.UserTakeActivityVO;
@@ -77,4 +78,10 @@ public interface IUserTakeActivityRepository {
      */
     List<InvoiceVO> scanInvoiceMqState();
 
+    /**
+     * 更新活动库存
+     *
+     * @param activityPartakeRecordVO   活动领取记录
+     */
+    void updateActivityStock(ActivityPartakeRecordVO activityPartakeRecordVO);
 }

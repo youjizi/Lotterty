@@ -29,7 +29,7 @@ import java.util.Optional;
 @Component
 public class LotteryInvoiceListener {
 
-    private Logger logger = LoggerFactory.getLogger(LotteryInvoiceListener.class);
+    private final Logger logger = LoggerFactory.getLogger(LotteryInvoiceListener.class);
 
     @Resource
     private DistributionGoodsFactory distributionGoodsFactory;

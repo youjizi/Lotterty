@@ -35,6 +35,11 @@ public class ActivityBillVO {
     private Date endDateTime;
 
     /**
+     * 库存
+     */
+    private Integer stockCount;
+
+    /**
      * 库存剩余
      * */
     private Integer stockSurplusCount;
@@ -98,6 +103,14 @@ public class ActivityBillVO {
 
     public void setEndDateTime(Date endDateTime) {
         this.endDateTime = endDateTime;
+    }
+
+    public Integer getStockCount() {
+        return stockCount;
+    }
+
+    public void setStockCount(Integer stockCount) {
+        this.stockCount = stockCount;
     }
 
     public Integer getStockSurplusCount() {
